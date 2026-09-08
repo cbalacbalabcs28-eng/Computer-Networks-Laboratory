@@ -1,0 +1,23 @@
+#include <stdbool.h>
+
+int lastRemaining(int n) {
+    int head = 1;
+    int step = 1;
+    int remaining = n;
+    bool left_to_right = true;
+
+    while (remaining > 1) {
+        // If moving left to right, or moving right to left with an odd count,
+        // the current head element will be eliminated.
+        if (left_to_right || (remaining % 2 == 1)) {
+            head += step;
+        }
+
+        // After each sweep:
+        remaining /= 2;       // The total elements remaining are cut in half
+        step *= 2;            // The gap between remaining elements doubles
+        left_to_right = !left_to_right; // Flip the direction for the next turn
+    }
+
+    return head;
+}
